@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="../static/styles.css"/>
+
+<div class="img-container">
+    <img src='../media/backend.png' alt="Backend Structure"/>
+</div>
+<p></p>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>API Endpoint</th>
+        <th>SQL query</th>
+        <th>Frontend page</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <td><a href="/players">Players</a></td>
+    <td>SELECT * FROM players</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/players">/players</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/managers">Managers</a></td>
+    <td>SELECT * FROM employees
+        <br>WHERE department = 'Руководство'
+        <br>ORDER BY order
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/front-office">/front-office</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/coaches">Coaches</a></td>
+    <td>SELECT * FROM employees
+        <br>WHERE department = 'Тренерский штаб'
+        <br>ORDER BY order
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/coaches">/coaches</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/staff">Staff</a></td>
+    <td>SELECT * FROM employees
+        <br>WHERE department = 'Персонал'
+        <br>ORDER BY order
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/staff">/staff</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/fanclub-countries">Fan Club - Countries</a></td>
+    <td>SELECT * FROM fanclubcountries</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/fanclub">/fanclub</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/fanclub-photos">Fan Club - Photos</a></td>
+    <td>SELECT * FROM mediaalbums
+        <br>WHERE page_reference = 'fanclub'
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/fanclub">/fanclub</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/sponsors-general">Sponsors - General</a></td>
+    <td>SELECT * FROM sponsors
+        <br>WHERE type = 'general'
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/partners">/partners</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/sponsors-regular">Sponsors - Regular</a></td>
+    <td>SELECT * FROM sponsors
+        <br>WHERE type = 'regular'
+    </td>
+    <td>
+        <a href="https://omsk-wings.effective.band/partners">/partners</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/sponsors-MHL2019">Sponsors - MHL2019</a></td>
+    <td>SELECT * FROM sponsors
+        <br>WHERE type = 'MHL2019'</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/partners">/partners</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/social-media">Social Media</a></td>
+    <td>SELECT * FROM sponsors
+        <br>WHERE type = 'social-media'</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/fanclub">/fanclub</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/contacts">Contacts</a></td>
+    <td>SELECT * FROM contacts</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/clubcontacts">/clubcontacts</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/seasons">Seasons</a></td>
+    <td>SELECT * FROM seasons</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/about">/about</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/rules">Rules</a></td>
+    <td>SELECT * FROM rules</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/rules">/rules</a>
+    </td>
+    </tbody>
+
+    <tbody>
+    <td><a href="/media/pravila_povedenia_zriteley.pdf">Rules - PDF</a></td>
+    <td>Правила поведения зрителей (PDF)</td>
+    <td>
+        <a href="https://omsk-wings.effective.band/rules">/rules</a>
+        <br><a href="https://omsk-wings.effective.band/arena">/arena</a>
+        <br><a href="https://omsk-wings.effective.band/fanclub">/fanclub</a>
+    </td>
+    </tbody>
+
+</table>
+
+<p><b>Additional info:</b></p>
+<ul>
+    <li>Nested 'achievements' array in 'Managers', 'Coaches' and 'Staff' APIs:
+        <br>SELECT * FROM achievements WHERE employee_id = id
+    </li>
+    <br>
+    <li>Nested 'cities' array in 'Fan Club - Countries' API:
+        <br>SELECT * FROM cities WHERE country_id = id
+    </li>
+    <br>
+    <li>Nested 'media_files' array in 'Fan Club - Photos' API:
+        <br>SELECT * FROM mediafiles WHERE media_album_id = id
+    </li>
+    <br>
+    <li>Nested 'trophies' array in 'Seasons' API:
+        <br>SELECT * FROM trophies WHERE season_id = id
+    </li>
+    <br>
+    <li>'birthday_short', 'birthday_long' and 'age' fields in every API that has 'birthday' field:
+        <br>Calculated and formatted based on 'birthday' data and included in API serializer
+    </li>
+    <br>
+    <li>'about_short' and 'about_dropdown' fields in 'Coaches' API:
+        <br>'about' data has been split into 'about_short' (first 200 characters) and 'about_dropdown' (remaining
+        characters) to comply with frontend component of the Coaches page.
+    </li>
+</ul>
+<br>
+<div class="img-container">
+    <div id="circle">
+        <div id="leo"></div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
